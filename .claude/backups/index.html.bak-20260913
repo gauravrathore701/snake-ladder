@@ -4,170 +4,110 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Snakes &amp; Ladders — Cursed Shrine</title>
-<link rel="icon" type="image/svg+xml" href="/favicon-mark.svg">
-<link rel="apple-touch-icon" href="/logo-icon.svg">
 <style>
-  /* Cursed Shrine paper design — mirrors cursedshrine.com and the blog
-     (bloging-app/src/styles/global.css). Keep tokens in sync. */
-  :root {
-    --color-bg: #e8dfc9;
-    --color-bg-sec: #ddd2b7;
-    --color-ink: #2b2723;
-    --color-ink-dim: #3f3830;
-    --color-accent: #6b4a2f;
-    --color-accent-dim: #8a6a4b;
-    --color-muted: #6f6555;
-    --color-line: #cbbd9e;
-    --font-sans: ui-sans-serif, system-ui, sans-serif;
-  }
   * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-  html, body { margin: 0; min-height: 100%; touch-action: manipulation; overscroll-behavior: none; }
-  html { background-color: var(--color-bg); }
+  html, body { margin: 0; height: 100%; touch-action: manipulation; overscroll-behavior: none; }
   body {
-    font-family: var(--font-sans);
-    color: var(--color-ink);
-    line-height: 1.5;
-    min-height: 100dvh;
-    display: flex; flex-direction: column;
-    background-image:
-      /* fold creases near the edges only — the middle crease is left out on purpose */
-      linear-gradient(90deg,
-        transparent 0 22%, rgba(90,70,40,.035) 22.2%, transparent 22.5%,
-        transparent 0 81%, rgba(90,70,40,.035) 81.2%, transparent 81.5%),
-      linear-gradient(0deg, transparent 0 63%, rgba(90,70,40,.025) 63.15%, transparent 63.4%),
-      repeating-linear-gradient(103deg, rgba(120,95,60,.028) 0 1px, transparent 1px 7px),
-      repeating-linear-gradient(11deg, rgba(120,95,60,.022) 0 1px, transparent 1px 11px),
-      radial-gradient(120% 90% at 50% 40%, transparent 55%, rgba(80,62,35,.06) 100%);
-    background-attachment: fixed;
-  }
-  a { color: inherit; text-decoration: none; }
-
-  /* ---- site header / footer (shared Cursed Shrine chrome) ---- */
-  .site-header { border-bottom: 1px solid var(--color-line); }
-  .site-col { width: 100%; max-width: 52rem; margin-left: auto; margin-right: auto; padding-left: 1rem; padding-right: 1rem; }
-  .site-header nav { display: flex; align-items: center; gap: 1.25rem; padding-top: 1rem; padding-bottom: 1rem; }
-  .wordmark { font-size: 1.125rem; font-weight: 600; letter-spacing: -0.025em; color: var(--color-ink); }
-  .nav-links { margin-left: auto; display: flex; gap: 1.25rem; font-size: .875rem; color: var(--color-muted); }
-  .nav-links a:hover, .wordmark:hover { color: var(--color-accent); }
-
-  .site-footer { margin-top: 2.5rem; border-top: 1px solid var(--color-line); }
-  .site-footer .site-col {
-    display: flex; flex-wrap: wrap; justify-content: space-between; gap: .5rem;
-    padding-top: 1.5rem; padding-bottom: 1.5rem;
-    font-size: .875rem; color: var(--color-muted);
-  }
-  .site-footer .links { display: flex; gap: 1.25rem; }
-  .site-footer .links a:hover { color: var(--color-accent); }
-  .site-footer .credit { flex-basis: 100%; text-align: right; font-size: .8rem; }
-  .site-footer .credit a { color: var(--color-accent); font-weight: 600; }
-  .site-footer .credit a:hover { text-decoration: underline; }
-  .site-footer .assist {
-    flex-basis: 100%; margin-top: -.4rem; text-align: right;
-    font-size: .7rem; font-style: italic; color: var(--color-muted); opacity: .85;
-  }
-
-  /* ---- page body ---- */
-  .app {
-    flex: 1; width: 100%;
+    font-family: 'Courier New', monospace;
+    background: radial-gradient(ellipse at top, #1a0e23 0%, #07060c 60%, #020203 100%);
+    color: #e6defc;
+    min-height: 100%;
     display: flex; flex-direction: column; align-items: center;
-    padding: 1.75rem 10px 0;
+    padding: 14px 10px 40px;
   }
   h1 {
-    font-size: 1.6rem; margin: 0 0 2px; color: var(--color-ink);
-    font-weight: 700; letter-spacing: -0.025em; text-align: center;
+    font-size: 1.5rem; margin: 6px 0 2px; color: #b48cff;
+    text-shadow: 0 0 12px rgba(138,77,255,.6);
+    letter-spacing: 1px;
   }
-  .subtitle { font-size: .8rem; color: var(--color-muted); margin-bottom: 18px; text-align: center; }
+  .subtitle { font-size: .75rem; color: #9388b0; margin-bottom: 14px; text-align: center; }
+  a.home { color: #8a4dff; text-decoration: none; }
+  a.home:hover { text-decoration: underline; }
 
   /* ---- shared card ---- */
   .card {
-    background: var(--color-bg-sec); border: 1px solid var(--color-line); border-radius: 12px;
+    background: rgba(40,24,60,.35); border: 1px solid #4d4564; border-radius: 12px;
     padding: 22px; max-width: 380px; width: 100%; text-align: center;
   }
-  .card h2 { margin-top: 0; color: var(--color-ink); font-size: 1.1rem; }
+  .card h2 { margin-top: 0; color: #e6defc; font-size: 1.1rem; }
 
   /* ---- mode select ---- */
   #modeSelect { display: flex; flex-direction: column; align-items: center; width: 100%; }
   .mode-buttons { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; margin-top: 8px; }
   .mode-btn {
     display: flex; flex-direction: column; align-items: center; gap: 6px;
-    padding: 20px 28px; border-radius: 12px;
-    border: 1px solid var(--color-line); background: var(--color-bg-sec);
-    color: var(--color-ink); cursor: pointer; font-family: inherit;
-    transition: border-color .15s, transform .15s, box-shadow .15s; min-width: 130px;
+    padding: 20px 28px; border-radius: 14px;
+    border: 1px solid rgba(138,77,255,.3); background: rgba(138,77,255,.07);
+    color: #e6defc; cursor: pointer; font-family: inherit;
+    transition: all .2s ease; min-width: 130px;
   }
-  .mode-btn:hover { border-color: var(--color-accent-dim); box-shadow: 0 2px 10px rgba(80,62,35,.12); transform: translateY(-2px); }
-  .mode-btn:hover .m-label { color: var(--color-accent); }
+  .mode-btn:hover { background: rgba(138,77,255,.15); border-color: #b48cff; transform: translateY(-3px); }
   .mode-btn .m-icon { font-size: 2rem; }
-  .mode-btn .m-label { font-size: .95rem; font-weight: 700; }
-  .mode-btn .m-desc { font-size: .72rem; color: var(--color-muted); }
+  .mode-btn .m-label { font-size: .95rem; font-weight: bold; }
+  .mode-btn .m-desc { font-size: .7rem; color: #9388b0; }
 
   /* ---- online setup ---- */
   #onlineSetup { display: none; width: 100%; max-width: 380px; }
   .player-count { display: flex; justify-content: center; gap: 10px; margin: 14px 0; }
   .player-count button {
-    width: 46px; height: 46px; border-radius: 50%; border: 1.5px solid var(--color-accent-dim);
-    background: var(--color-bg); color: var(--color-ink); font-size: 1.1rem; cursor: pointer; font-family: inherit;
+    width: 46px; height: 46px; border-radius: 50%; border: 2px solid #5a1fbf;
+    background: rgba(138,77,255,.12); color: #e6defc; font-size: 1.1rem; cursor: pointer; font-family: inherit;
   }
-  .player-count button.sel { background: var(--color-accent); color: var(--color-bg); border-color: var(--color-accent); }
+  .player-count button.sel { background: #8a4dff; color: #07060c; border-color: #b48cff; }
 
   /* ---- local setup ---- */
   #setup { display: none; width: 100%; max-width: 380px; }
   .player-list { display: flex; flex-direction: column; gap: 8px; margin: 14px 0; }
   .player-row { display: flex; align-items: center; gap: 10px; }
-  .token-dot { width: 22px; height: 22px; border-radius: 50%; flex-shrink: 0; border: 2px solid #f7f1e3; box-shadow: 0 0 0 1px var(--color-line); }
-  .player-row input, .name-input {
-    flex: 1; background: var(--color-bg); border: 1px solid var(--color-line); border-radius: 6px;
-    color: var(--color-ink); padding: 7px 9px; font-family: inherit; font-size: .85rem;
+  .token-dot { width: 22px; height: 22px; border-radius: 50%; flex-shrink: 0; border: 2px solid rgba(255,255,255,.5); }
+  .player-row input {
+    flex: 1; background: rgba(0,0,0,.3); border: 1px solid #4d4564; border-radius: 6px;
+    color: #e6defc; padding: 7px 9px; font-family: inherit; font-size: .85rem;
   }
-  .name-input { width: 100%; padding: 9px; font-size: .9rem; }
-  .player-row input:focus, .name-input:focus { outline: none; border-color: var(--color-accent); }
-  .hint { font-size: .8rem; color: var(--color-muted); margin: 0 0 10px; }
-  .error-text { color: #9b2d20; font-size: .8rem; margin-top: 10px; }
 
   /* ---- shared primary button ---- */
   .btn-primary {
-    margin-top: 6px; width: 100%; padding: 12px; font-size: 1rem; font-weight: 700;
-    background: var(--color-accent); color: var(--color-bg); border: 1px solid var(--color-accent);
-    border-radius: 8px; cursor: pointer; letter-spacing: .5px; font-family: inherit;
-    transition: background-color .15s, color .15s;
+    margin-top: 6px; width: 100%; padding: 12px; font-size: 1rem; font-weight: bold;
+    background: linear-gradient(135deg,#8a4dff,#5a1fbf); color: #fff; border: none;
+    border-radius: 8px; cursor: pointer; letter-spacing: 1px; font-family: inherit;
   }
-  .btn-primary:hover:not(:disabled) { background: transparent; color: var(--color-accent); }
+  .btn-primary:active { filter: brightness(1.2); }
   .btn-primary:disabled { opacity: .5; cursor: default; }
   .btn-back {
-    background: none; border: 1px solid var(--color-line); color: var(--color-muted); border-radius: 8px;
+    background: none; border: 1px solid #4d4564; color: #9388b0; border-radius: 8px;
     padding: 8px 16px; font-family: inherit; cursor: pointer; font-size: .8rem;
     margin-bottom: 12px; display: block;
   }
-  .btn-back:hover { border-color: var(--color-accent-dim); color: var(--color-accent); }
+  .btn-back:hover { border-color: #b48cff; color: #e6defc; }
 
   /* ---- waiting room ---- */
   #waitingRoom { display: none; width: 100%; max-width: 380px; }
   .waiting-slots { display: flex; flex-direction: column; gap: 8px; margin: 14px 0; }
   .slot-row {
     display: flex; align-items: center; gap: 10px; padding: 8px 12px;
-    border-radius: 8px; background: var(--color-bg); border: 1px solid var(--color-line);
+    border-radius: 8px; background: rgba(0,0,0,.2); border: 1px solid #3a3054;
     font-size: .85rem;
   }
-  .slot-row.filled { border-color: var(--color-accent-dim); }
-  .slot-row.waiting-slot { opacity: .5; }
+  .slot-row.filled { border-color: rgba(138,77,255,.4); }
+  .slot-row.waiting-slot { opacity: .45; }
   .invite-box {
-    background: var(--color-bg); border: 1px solid var(--color-line);
+    background: rgba(138,77,255,.08); border: 1px solid rgba(138,77,255,.25);
     border-radius: 10px; padding: 12px; margin: 10px 0;
   }
-  .invite-label { font-size: .75rem; color: var(--color-muted); margin-bottom: 8px; }
+  .invite-label { font-size: .75rem; color: #9388b0; margin-bottom: 8px; }
   .invite-row { display: flex; gap: 8px; align-items: center; }
   .invite-url {
-    flex: 1; font-size: .75rem; color: var(--color-accent); background: var(--color-bg-sec);
-    border-radius: 6px; padding: 6px 8px; font-family: ui-monospace, monospace;
+    flex: 1; font-size: .75rem; color: #b48cff; background: rgba(0,0,0,.3);
+    border-radius: 6px; padding: 6px 8px; font-family: monospace;
     overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
   }
   .btn-copy {
-    padding: 6px 12px; border-radius: 6px; font-size: .75rem; font-weight: 700;
-    cursor: pointer; border: 1px solid var(--color-accent); background: var(--color-accent);
-    color: var(--color-bg); font-family: inherit; white-space: nowrap; transition: all .15s;
+    padding: 6px 12px; border-radius: 6px; font-size: .75rem; font-weight: bold;
+    cursor: pointer; border: 1px solid rgba(138,77,255,.5); background: rgba(138,77,255,.2);
+    color: #b48cff; font-family: inherit; white-space: nowrap; transition: all .2s;
   }
-  .btn-copy:hover { background: transparent; color: var(--color-accent); }
-  .waiting-label { font-size: .8rem; color: #8a5a12; margin: 4px 0; }
+  .btn-copy:hover { background: rgba(138,77,255,.35); }
+  .waiting-label { font-size: .8rem; color: #ffd24d; margin: 4px 0; }
   @keyframes blink { 0%,100% { opacity: .6; } 50% { opacity: 1; } }
   .blinking { animation: blink 1.2s ease-in-out infinite; }
 
@@ -178,24 +118,24 @@
   #board-wrap { position: relative; width: 100%; max-width: 560px; aspect-ratio: 1 / 1; }
   #board {
     display: grid; grid-template-columns: repeat(10, 1fr); grid-template-rows: repeat(10, 1fr);
-    width: 100%; height: 100%; border: 3px solid var(--color-accent); border-radius: 8px; overflow: hidden;
-    background: #efe7d3;
-    box-shadow: 0 4px 18px rgba(80,62,35,.18);
+    width: 100%; height: 100%; border: 3px solid #b48cff; border-radius: 8px; overflow: hidden;
+    box-shadow: 0 0 30px rgba(180,140,255,.4);
   }
   .cell {
-    position: relative; border: 1px solid rgba(43,39,35,.14);
+    position: relative; border: 1px solid rgba(255,255,255,.22);
     display: flex; align-items: flex-start; justify-content: flex-end;
-    font-size: .75rem; font-weight: 700; color: var(--color-ink-dim); padding: 2px 4px;
+    font-size: .75rem; font-weight: 700; color: #ffffff; padding: 2px 4px;
+    text-shadow: 0 0 4px rgba(255,255,255,.35);
   }
-  .cell.even { background: rgba(107,74,47,.07); }
-  .cell.start { background: rgba(79,122,42,.16); }
-  .cell.goal { background: rgba(194,138,28,.28); color: var(--color-accent); font-weight: 800; }
+  .cell.even { background: rgba(255,255,255,.07); }
+  .cell.start { background: rgba(80,255,140,.16); }
+  .cell.goal { background: rgba(255,210,77,.24); color: #ffd24d; font-weight: bold; text-shadow: 0 0 6px rgba(255,210,77,.7); }
 
   #overlay { position: absolute; inset: 0; pointer-events: none; }
 
   .token {
     position: absolute; width: 4.5%; height: 4.5%; border-radius: 50%;
-    border: 1.5px solid #f7f1e3; box-shadow: 0 1px 3px rgba(43,39,35,.55);
+    border: 1.5px solid rgba(255,255,255,.85); box-shadow: 0 1px 4px rgba(0,0,0,.6);
     transition: left .35s ease, top .35s ease; z-index: 5;
   }
 
@@ -203,86 +143,74 @@
   #controls {
     display: flex; align-items: center; justify-content: space-between; gap: 14px;
     width: 100%; max-width: 560px; margin-top: 14px;
-    background: var(--color-bg-sec); border: 1px solid var(--color-line); border-radius: 10px;
+    background: rgba(40,24,60,.35); border: 1px solid #4d4564; border-radius: 10px;
     padding: 12px 16px;
   }
   #turnInfo { font-size: .85rem; flex: 1; }
-  #turnInfo .pname { font-weight: 700; }
-  #msg { font-size: .72rem; color: var(--color-muted); margin-top: 2px; min-height: 1em; }
+  #turnInfo .pname { font-weight: bold; }
+  #msg { font-size: .7rem; color: #9388b0; margin-top: 2px; min-height: 1em; }
 
   #dice {
-    width: 50px; height: 50px; background: var(--color-accent); border-radius: 8px;
+    width: 50px; height: 50px; background: #e6defc; border-radius: 8px;
     display: grid; grid-template-columns: repeat(3,1fr); grid-template-rows: repeat(3,1fr);
-    padding: 7px; gap: 2px; box-shadow: 0 2px 6px rgba(43,39,35,.35); flex-shrink: 0;
+    padding: 7px; gap: 2px; box-shadow: 0 2px 8px rgba(0,0,0,.5); flex-shrink: 0;
     cursor: pointer; transition: transform .1s, background .25s ease;
   }
   #dice:active { transform: scale(.92); }
   #dice.rolling { animation: shake .1s infinite; }
   @keyframes shake { 0%,100% { transform: rotate(-4deg); } 50% { transform: rotate(4deg); } }
   .pip { border-radius: 50%; background: transparent; align-self: center; justify-self: center; width: 8px; height: 8px; }
-  .pip.on { background: #f7f1e3; box-shadow: 0 0 0 .5px rgba(43,39,35,.35); }
+  .pip.on { background: #1a0e23; }
 
   #rollBtn {
-    background: var(--color-accent); color: var(--color-bg); border: 1px solid var(--color-accent);
-    border-radius: 8px; padding: 12px 16px; font-family: inherit; font-weight: 700;
+    background: linear-gradient(135deg,#8a4dff,#5a1fbf); color: #fff; border: none;
+    border-radius: 8px; padding: 12px 16px; font-family: inherit; font-weight: bold;
     font-size: .85rem; cursor: pointer; flex-shrink: 0; letter-spacing: .5px;
   }
-  #rollBtn:hover:not(:disabled) { background: transparent; color: var(--color-accent); }
   #rollBtn:disabled { opacity: .4; cursor: default; }
 
   #undoBtn {
-    background: var(--color-bg); color: var(--color-accent); border: 1px solid var(--color-accent-dim);
-    border-radius: 8px; padding: 12px 14px; font-family: inherit; font-weight: 700;
+    background: rgba(138,77,255,.12); color: #b48cff; border: 1px solid #5a1fbf;
+    border-radius: 8px; padding: 12px 14px; font-family: inherit; font-weight: bold;
     font-size: 1rem; cursor: pointer; flex-shrink: 0;
   }
-  #undoBtn:disabled { opacity: .35; cursor: default; }
-  #undoBtn:hover:not(:disabled) { border-color: var(--color-accent); }
+  #undoBtn:disabled { opacity: .3; cursor: default; }
+  #undoBtn:active:not(:disabled) { filter: brightness(1.3); }
 
   /* ---- win modal ---- */
   #winModal {
-    display: none; position: fixed; inset: 0; background: rgba(43,39,35,.55);
+    display: none; position: fixed; inset: 0; background: rgba(2,2,3,.85);
     align-items: center; justify-content: center; z-index: 50;
   }
   #winModal.active { display: flex; }
   .win-card {
-    background: var(--color-bg); border: 1px solid var(--color-line);
+    background: linear-gradient(160deg,#2a1a3d,#1a0e23); border: 1px solid #8a4dff;
     border-radius: 14px; padding: 30px 26px; text-align: center; max-width: 320px;
-    box-shadow: 0 10px 40px rgba(43,39,35,.35);
+    box-shadow: 0 0 50px rgba(138,77,255,.4);
   }
-  .win-card h2 { color: var(--color-ink); margin: 0 0 8px; font-size: 1.4rem; }
-  .win-card p { color: var(--color-ink-dim); font-size: .9rem; margin: 0 0 18px; }
+  .win-card h2 { color: #ffd24d; margin: 0 0 8px; font-size: 1.4rem; text-shadow: 0 0 12px rgba(255,210,77,.6); }
+  .win-card p { color: #b48cff; font-size: .85rem; margin: 0 0 18px; }
   .win-card .win-btns { display: flex; gap: 10px; justify-content: center; }
   .win-card button {
-    background: var(--color-accent); color: var(--color-bg); border: 1px solid var(--color-accent);
-    border-radius: 8px; padding: 12px 20px; font-family: inherit; font-weight: 700;
+    background: linear-gradient(135deg,#8a4dff,#5a1fbf); color: #fff; border: none;
+    border-radius: 8px; padding: 12px 20px; font-family: inherit; font-weight: bold;
     cursor: pointer; font-size: .85rem;
   }
-  .win-card .btn-leave { background: transparent; color: var(--color-accent); }
+  .win-card .btn-leave {
+    background: rgba(138,77,255,.12); border: 1px solid #5a1fbf; color: #b48cff;
+  }
 
   /* ---- online turn indicator ---- */
   .your-turn-badge {
-    display: inline-block; background: var(--color-accent); border: 1px solid var(--color-accent);
-    border-radius: 6px; padding: 1px 8px; font-size: .7rem; color: var(--color-bg); margin-left: 6px;
+    display: inline-block; background: rgba(138,77,255,.2); border: 1px solid #8a4dff;
+    border-radius: 6px; padding: 2px 8px; font-size: .7rem; color: #b48cff; margin-left: 6px;
   }
 
-  @media (max-width: 640px) {
-    .nav-links { gap: 1rem; }
-  }
+  footer { margin-top: 22px; font-size: .65rem; color: #6a5f86; text-align: center; }
 </style>
 </head>
 <body>
 
-<header class="site-header">
-  <nav class="site-col">
-    <a href="https://cursedshrine.com" class="wordmark">Cursed Shrine</a>
-    <div class="nav-links">
-      <a href="https://gaurav.cursedshrine.com">Portfolio</a>
-      <a href="https://cursedshrine.com/blog/">Blog</a>
-    </div>
-  </nav>
-</header>
-
-<main class="app">
 <h1>🐍 Snakes &amp; Ladders 🪜</h1>
 <div class="subtitle">Moksha Patam — the ancient Indian board game of fate</div>
 
@@ -317,23 +245,25 @@
     <button class="btn-back" id="onlineBackBtn">‹ Back</button>
     <div id="createSection">
       <h2>Create a Room</h2>
-      <p class="hint">How many players?</p>
+      <p style="font-size:.8rem;color:#9388b0;margin:0 0 10px">How many players?</p>
       <div class="player-count" id="onlinePlayerCount"></div>
       <div style="margin:14px 0">
-        <input id="hostName" class="name-input" maxlength="14"
-          placeholder="Your name">
+        <input id="hostName" class="player-row input" maxlength="14"
+          placeholder="Your name"
+          style="width:100%;background:rgba(0,0,0,.3);border:1px solid #4d4564;border-radius:6px;color:#e6defc;padding:9px;font-family:inherit;font-size:.9rem">
       </div>
       <button class="btn-primary" id="createRoomBtn">Create Room</button>
     </div>
     <div id="joinSection" style="display:none">
       <h2 id="joinTitle">Join Room</h2>
-      <p id="joinRoomCode" class="hint" style="font-size:.75rem;margin:0 0 12px"></p>
+      <p id="joinRoomCode" style="font-size:.75rem;color:#9388b0;margin:0 0 12px"></p>
       <div style="margin:0 0 14px">
-        <input id="guestName" class="name-input" maxlength="14"
-          placeholder="Your name">
+        <input id="guestName" class="player-row input" maxlength="14"
+          placeholder="Your name"
+          style="width:100%;background:rgba(0,0,0,.3);border:1px solid #4d4564;border-radius:6px;color:#e6defc;padding:9px;font-family:inherit;font-size:.9rem">
       </div>
       <button class="btn-primary" id="joinRoomBtn">Join Game</button>
-      <p id="joinError" class="error-text" style="display:none"></p>
+      <p id="joinError" style="color:#f87171;font-size:.8rem;margin-top:10px;display:none"></p>
     </div>
   </div>
 </div>
@@ -383,21 +313,9 @@
   </div>
 </div>
 
-</main>
-
-<footer class="site-footer">
-  <div class="site-col">
-    <span>&copy; <span id="year">2026</span> Cursed Shrine &middot; built on a Raspberry Pi</span>
-    <span class="links">
-      <a href="https://cursedshrine.com">Home</a>
-      <a href="https://gaurav.cursedshrine.com">Portfolio</a>
-      <a href="https://cursedshrine.com/blog/">Blog</a>
-    </span>
-    <span class="credit">developed and managed by <a href="https://gaurav.cursedshrine.com">Gaurav Rathore</a></span>
-    <span class="assist">With the help of Claudy Rex (AI Assistant)</span>
-  </div>
+<footer>
+  <a class="home" href="https://cursedshrine.com">‹ Cursed Shrine</a>
 </footer>
-<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 
 <script src="/socket.io/socket.io.js"></script>
 <script>
@@ -405,7 +323,7 @@
   // ─────────────────────────────────
   //  CONSTANTS
   // ─────────────────────────────────
-  const COLORS  = ['#b23a2e', '#2f6f8f', '#b8860b', '#4f7a2a'];
+  const COLORS  = ['#ff5e5e', '#5ee0ff', '#ffd24d', '#7CFC00'];
   const NAMES   = ['Player 1', 'Player 2', 'Player 3', 'Player 4'];
   const LADDERS = { 1:38, 4:14, 9:31, 21:42, 28:84, 36:44, 51:67, 71:91 };
   const SNAKES  = { 16:6, 47:26, 49:11, 56:53, 62:19, 64:60, 87:24, 90:48, 93:73, 95:75, 98:78 };
@@ -476,12 +394,12 @@
     const g = svgEl('g');
     const dx = b.x-a.x, dy = b.y-a.y, len = Math.hypot(dx,dy);
     const nx = -dy/len, ny = dx/len, off = 1.4;
-    g.appendChild(svgLine(a.x+nx*off,a.y+ny*off, b.x+nx*off,b.y+ny*off,'#8a6a4b',0.8));
-    g.appendChild(svgLine(a.x-nx*off,a.y-ny*off, b.x-nx*off,b.y-ny*off,'#8a6a4b',0.8));
+    g.appendChild(svgLine(a.x+nx*off,a.y+ny*off, b.x+nx*off,b.y+ny*off,'#caa15a',0.8));
+    g.appendChild(svgLine(a.x-nx*off,a.y-ny*off, b.x-nx*off,b.y-ny*off,'#caa15a',0.8));
     const rungs = Math.max(3, Math.floor(len/8));
     for (let i = 1; i < rungs; i++) {
       const t = i/rungs, x = a.x+dx*t, y = a.y+dy*t;
-      g.appendChild(svgLine(x+nx*off,y+ny*off, x-nx*off,y-ny*off,'#8a6a4b',0.7));
+      g.appendChild(svgLine(x+nx*off,y+ny*off, x-nx*off,y-ny*off,'#caa15a',0.7));
     }
     return g;
   }
@@ -494,15 +412,15 @@
     const m2x = a.x+dx*.66-nx*wig, m2y = a.y+dy*.66-ny*wig;
     const path = svgEl('path');
     path.setAttribute('d', `M ${a.x} ${a.y} C ${m1x} ${m1y},${m1x} ${m1y},${(a.x+b.x)/2} ${(a.y+b.y)/2} S ${m2x} ${m2y},${b.x} ${b.y}`);
-    path.setAttribute('stroke','#9b2d20'); path.setAttribute('stroke-width','1.4');
+    path.setAttribute('stroke','#ff5e5e'); path.setAttribute('stroke-width','1.4');
     path.setAttribute('fill','none'); path.setAttribute('stroke-linecap','round'); path.setAttribute('opacity','0.85');
     g.appendChild(path);
     const head = svgEl('circle');
-    head.setAttribute('cx',a.x); head.setAttribute('cy',a.y); head.setAttribute('r','2.2'); head.setAttribute('fill','#9b2d20');
+    head.setAttribute('cx',a.x); head.setAttribute('cy',a.y); head.setAttribute('r','2.2'); head.setAttribute('fill','#ff5e5e');
     g.appendChild(head);
     [-0.7,0.7].forEach(off => {
       const eye = svgEl('circle');
-      eye.setAttribute('cx',a.x+off); eye.setAttribute('cy',a.y-0.6); eye.setAttribute('r','0.4'); eye.setAttribute('fill','#f7f1e3');
+      eye.setAttribute('cx',a.x+off); eye.setAttribute('cy',a.y-0.6); eye.setAttribute('r','0.4'); eye.setAttribute('fill','#1a0e23');
       g.appendChild(eye);
     });
     return g;
@@ -913,7 +831,7 @@
         clearInterval(stepInterval);
         diceEl.classList.remove('rolling');
         renderDice(roll);
-        diceEl.style.background = state.players[state.current] ? state.players[state.current].color : '#6b4a2f';
+        diceEl.style.background = state.players[state.current] ? state.players[state.current].color : '#e6defc';
         setTimeout(() => {
           if (jumped) {
             players[slot].pos = jumped.to;
@@ -978,6 +896,5 @@
 
 })();
 </script>
-<script src="https://cursedshrine.com/doodles.js?v=20260913c" defer></script>
 </body>
 </html>

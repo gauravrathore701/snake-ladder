@@ -7,7 +7,7 @@ const app = express();
 const httpServer = createServer(app);
 const io = new Server(httpServer);
 
-const COLORS  = ['#b23a2e', '#2f6f8f', '#b8860b', '#4f7a2a'];
+const COLORS  = ['#ff5e5e', '#5ee0ff', '#ffd24d', '#7CFC00'];
 const LADDERS = { 1:38, 4:14, 9:31, 21:42, 28:84, 36:44, 51:67, 71:91 };
 const SNAKES  = { 16:6, 47:26, 49:11, 56:53, 62:19, 64:60, 87:24, 90:48, 93:73, 95:75, 98:78 };
 

@@ -4,8 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Snakes &amp; Ladders — Cursed Shrine</title>
-<link rel="icon" type="image/svg+xml" href="/favicon-mark.svg">
-<link rel="apple-touch-icon" href="/logo-icon.svg">
 <style>
   /* Cursed Shrine paper design — mirrors cursedshrine.com and the blog
      (bloging-app/src/styles/global.css). Keep tokens in sync. */
@@ -30,9 +28,9 @@
     min-height: 100dvh;
     display: flex; flex-direction: column;
     background-image:
-      /* fold creases near the edges only — the middle crease is left out on purpose */
       linear-gradient(90deg,
         transparent 0 22%, rgba(90,70,40,.035) 22.2%, transparent 22.5%,
+        transparent 0 57%, rgba(90,70,40,.03) 57.2%, transparent 57.5%,
         transparent 0 81%, rgba(90,70,40,.035) 81.2%, transparent 81.5%),
       linear-gradient(0deg, transparent 0 63%, rgba(90,70,40,.025) 63.15%, transparent 63.4%),
       repeating-linear-gradient(103deg, rgba(120,95,60,.028) 0 1px, transparent 1px 7px),
@@ -978,6 +976,5 @@
 
 })();
 </script>
-<script src="https://cursedshrine.com/doodles.js?v=20260913c" defer></script>
 </body>
 </html>

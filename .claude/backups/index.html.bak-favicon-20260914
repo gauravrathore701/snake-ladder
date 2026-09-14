@@ -4,8 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Snakes &amp; Ladders — Cursed Shrine</title>
-<link rel="icon" type="image/svg+xml" href="/favicon-mark.svg">
-<link rel="apple-touch-icon" href="/logo-icon.svg">
 <style>
   /* Cursed Shrine paper design — mirrors cursedshrine.com and the blog
      (bloging-app/src/styles/global.css). Keep tokens in sync. */
