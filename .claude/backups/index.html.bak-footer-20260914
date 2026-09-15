@@ -387,7 +387,7 @@
 
 <footer class="site-footer">
   <div class="site-col">
-    <span>&copy; <span id="year">2026</span> Cursed Shrine</span>
+    <span>&copy; <span id="year">2026</span> Cursed Shrine &middot; built on a Raspberry Pi</span>
     <span class="links">
       <a href="https://cursedshrine.com">Home</a>
       <a href="https://gaurav.cursedshrine.com">Portfolio</a>
